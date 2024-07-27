@@ -20,7 +20,7 @@ variable "lambda_handler" {
 
 variable "lambda_architectures" {
   type    = list(string)
-  default = ["arm64"]
+  default = ["x86_64"]
 }
 
 variable "lambda_timeout" {
@@ -29,11 +29,16 @@ variable "lambda_timeout" {
 }
 
 variable "storage_size" {
-  type = number
+  type    = number
   default = 2048
 }
 
 variable "memory_size" {
   type    = number
-  default = 2048
+  default = 1792
+}
+
+variable "repository_name" {
+  type    = string
+  default = "custom-lambda"
 }

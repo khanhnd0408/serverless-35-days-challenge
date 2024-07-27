@@ -1,5 +1,11 @@
 variable "absolute_package_path" {
   type = string
+  default = ""
+}
+
+variable "ecr_image_uri" {
+  type = string
+  default = ""
 }
 
 variable "function_name" {
@@ -16,6 +22,7 @@ variable "function_handler" {
 
 variable "package_hash" {
   type = string
+  default = ""
 }
 
 variable "runtime" {
@@ -23,12 +30,12 @@ variable "runtime" {
 }
 
 variable "memory_size" {
-  type = number
+  type    = number
   default = 128
 }
 
 variable "storage_size" {
-  type = number
+  type    = number
   default = 512
 }
 
@@ -38,7 +45,7 @@ variable "timeout" {
 }
 
 variable "env_parameters" {
-  type    = map
+  type    = map(any)
   default = {}
 }
 
@@ -47,16 +54,16 @@ variable "architectures" {
   default = ["x86_64"]
 }
 
-variable "layer_zip_path" {
-  type = string
-}
-
-variable "layer_name" {
-  type = string
+variable "layer_details" {
+  type = list(object({
+    layer_name = string
+    zip_path   = string
+  }))
+  default = []
 }
 
 variable "tags" {
-  type    = map
+  type    = map(any)
   default = {}
 }
 
@@ -64,6 +71,6 @@ variable "bucket_arn" {
   type = string
 }
 
-variable "layer_depends_on" {
-  type = any
-}
+# variable "function_depends_on" {
+#   type = any
+# }

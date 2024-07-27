@@ -8,6 +8,7 @@ variable "lambda_function_arn" {
 
 variable "upload_object_depend_on" {
   type = any
+  default = null
 }
 
 variable "python_lib_title" {

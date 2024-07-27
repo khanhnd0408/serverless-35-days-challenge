@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
-  
-  tags = var.tags
+  bucket        = var.bucket_name
+  force_destroy = true
+  tags          = var.tags
 }
 
 resource "aws_s3_bucket_ownership_controls" "this" {
@@ -29,12 +29,12 @@ resource "aws_s3_bucket_notification" "on_upload" {
 }
 
 resource "aws_s3_object" "this" {
-  count  = length(var.python_lib_zip) > 0 ? 1:0
+  count  = length(var.python_lib_zip) > 0 ? 1 : 0
   bucket = var.bucket_name
   key    = var.python_lib_title
   source = var.python_lib_zip
 
-  etag = filemd5(var.python_lib_zip)
+  etag = try(filemd5(var.python_lib_zip), "")
 
   depends_on = [var.upload_object_depend_on]
 }
